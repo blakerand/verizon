@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/header";
 import { useState, useEffect } from "react";
 import { users } from "@/users";
+import { motion } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -35,12 +36,43 @@ export default function Home() {
     };
     getRecap();
   }, []);
+  const listItem = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, y: 0 },
+  };
+
+  const container = {
+    hidden: { opacity: 0 },
+    
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
   return (
-    <div className="flex bg-black min-h-screen pb-48 flex-col items-center justify-between">
+    <motion.div className="flex bg-black min-h-screen pb-48 flex-col items-center justify-between">
       <Header />
       <div className="flex items-center mx-auto flex-col px-24 space-y-8">
-        <div className="text-white text-4xl font-bold">Welcome Back, Max</div>
+      <div className="text-white text-4xl font-bold">Welcome Back, Max</div>
+      <motion.div
+        className="flex items-center mx-auto flex-col px-24 space-y-8"
+        initial="hidden"
+        animate="show"
+        transition={{ duration: 0.5 }}
+      >
+        <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center w-full px-10">
+          <motion.ul className="list-disc pl-5 text-white space-y-3 my-6" variants={container} initial="hidden" animate="show">
+            {recapBulletPoints?.map((point, index) => (
+              <motion.li variants={listItem} key={index} className="text-white text-left bullet-point">
+                {point}
+              </motion.li>
+            )) || null}
+            </motion.ul>
+        </Card>
         <div className="flex space-x-4 max-w-full ">
           <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
             <CardTitle className="mb-1 text-white">
@@ -53,21 +85,17 @@ export default function Home() {
             <img src="/15.avif" alt="iPhone 15" />
             <Button className="w-3/4 mt-4 bg-red-700">I'm in</Button>
           </Card>
-          <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+          <Card className="bg-white bg-opacity-100 rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
             <img
               src="https://ss7.vzw.com/is/image/VerizonWireless/perk-tile-disney-bundle-3x2-small?&scl=1"
               alt="Perk Image"
               className="rounded-xl my-8 w-2/3"
             />
-            <CardTitle className="mb-1 text-white text-left">
-              We know you love
-              <br /> movies, series & more
+            <CardTitle className="mb-1 text-black mx-10 text-center">
+              We know you love movies, series & more
             </CardTitle>
-            <CardDescription className="text-gray-300">
+            <CardFooter className="text-gray-700 flex-col text-sm">
               Unlimited Plus Plan
-            </CardDescription>
-            <CardFooter className="text-gray-300 flex-col text-sm">
-              Only a $10 premium to your current plan
               <p className="text-xs text-green-600">$8.99/line perk savings</p>
             </CardFooter>
             <Button className="w-3/4 bg-red-700">Upgrade</Button>
@@ -84,18 +112,9 @@ export default function Home() {
             <Button className="w-3/4 mt-4 bg-red-700">I'm in</Button>
           </Card>
         </div>
-        <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center w-full px-10">
-          <CardTitle className="mb-1 text-white">Your Recap</CardTitle>
-          <CardDescription className="text-gray-300 text-center">
-            {recap}
-            {recapBulletPoints?.map((point, index) => (
-              <div key={index} className="text-white text-left bullet-point">
-                {point}
-              </div>
-            )) || null}
-          </CardDescription>
-        </Card>
+        
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
