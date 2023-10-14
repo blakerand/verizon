@@ -11,7 +11,7 @@ export default function Header() {
         </a>
         <Separator orientation="vertical" />
         <a href="#" className="text-white font-bold">
-          <p className="text-Helvetica">Sign in</p>
+          <p className="text-Helvetica">Sign out</p>
         </a>
       </div>
     </header>

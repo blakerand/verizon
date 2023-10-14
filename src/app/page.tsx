@@ -12,6 +12,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Textarea } from "@/components/ui/textarea"
+import ChatComponent from "@/components/chatComponent";
+
 
 export default function Home() {
   const [recap, setRecap] = useState(null);
@@ -54,17 +58,19 @@ export default function Home() {
   };
 
   return (
-    <motion.div className="flex bg-black min-h-screen pb-48 flex-col items-center justify-between">
+    <motion.div className="bg-black min-h-screen">
+    <motion.div className=" mx-auto flex-col px-24 flex pb-4 items-center justify-between">
       <Header />
-      <div className="flex items-center mx-auto flex-col px-24 space-y-8">
-      <div className="text-white text-4xl font-bold">Welcome Back, Max</div>
+      <div className="text-white text-4xl flex justify-center w-full mt-64 text-center mb-48">Welcome to the new Verizon Experience, Max.</div>
+      {/* <a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3">Edit profile & settings</a> */}
+      </motion.div>
       <motion.div
-        className="flex items-center mx-auto flex-col px-24 space-y-8"
+        className="flex items-center mx-auto flex-col mt-4 px-24"
         initial="hidden"
         animate="show"
         transition={{ duration: 0.5 }}
       >
-        <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center w-full px-10">
+        {/* <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center w-full px-10">
           <motion.ul className="list-disc pl-5 text-white space-y-3 my-6" variants={container} initial="hidden" animate="show">
             {recapBulletPoints?.map((point, index) => (
               <motion.li variants={listItem} key={index} className="text-white text-left bullet-point">
@@ -72,49 +78,54 @@ export default function Home() {
               </motion.li>
             )) || null}
             </motion.ul>
-        </Card>
-        <div className="flex space-x-4 max-w-full ">
-          <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+        </Card> */}
+        {/* <div className="flex space-x-4 max-w-full ">
+          <Card className="bg-black rounded-lg w-1/3 p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
             <CardTitle className="mb-1 text-white">
-              Get an iPhone 15 Pro on us.
+              Unlimited Ultimate
             </CardTitle>
             <CardDescription className="text-gray-300">
-              Looks like you're due for an upgrade
+              Your ultimate, iPhone plan, with Apple One
             </CardDescription>
 
             <img src="/15.avif" alt="iPhone 15" />
-            <Button className="w-3/4 mt-4 bg-red-700">I'm in</Button>
+            <Button className="w-3/4 bg-red-700 mt-4">Manage Plan</Button>
+            
           </Card>
-          <Card className="bg-white bg-opacity-100 rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+          <Card className="bg-black bg-opacity-100 rounded-lg w-1/3 p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+          <CardTitle className="mb-1 text-white mx-10 text-center">
+             Activate Apple One for Free.
+            </CardTitle>
+            <div className="text-gray-300 flex-col text-sm px-10 text-center">
+              Apple One is included in your plan and haven't activated it.
+            </div>
             <img
-              src="https://ss7.vzw.com/is/image/VerizonWireless/perk-tile-disney-bundle-3x2-small?&scl=1"
+              src="https://ss7.vzw.com/is/image/VerizonWireless/perk-tile-apple-one-3x2-small?&scl=1"
               alt="Perk Image"
-              className="rounded-xl my-8 w-2/3"
+              className="rounded-xl my-16 w-2/3"
             />
-            <CardTitle className="mb-1 text-black mx-10 text-center">
-              We know you love movies, series & more
-            </CardTitle>
-            <CardFooter className="text-gray-700 flex-col text-sm">
-              Unlimited Plus Plan
-              <p className="text-xs text-green-600">$8.99/line perk savings</p>
-            </CardFooter>
-            <Button className="w-3/4 bg-red-700">Upgrade</Button>
+            
+            <Button className="w-3/4 bg-red-700 mt-4">Activate</Button>
           </Card>
-          <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
-            <CardTitle className="mb-1 text-white">
-              Get an iPhone 15 Pro on us.
+          <Card className="bg-black bg-opacity-100 rounded-lg w-1/3 p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+          <CardTitle className="mb-1 text-white mx-10 text-center">
+             You've had your screen repaired recently.
             </CardTitle>
-            <CardDescription className="text-gray-300">
-              Looks like you're due for an upgrade
-            </CardDescription>
+            <div className="text-gray-300 flex-col text-sm px-10 text-center">
+              You can still get AppleCare+ with Theft and Loss.
+            </div>
+            <img
+              src="https://ss7.vzw.com/is/image/VerizonWireless/applecareplus-cc3000/?wid=465&hei=465&fmt=webp"
+              alt="Perk Image"
+              className="rounded-xl my-7 w-2/3"
+            />
+            <Button className="w-3/4 bg-red-700 mt-4">Chat</Button>
+          </Card>
+        </div> */}
+        <ChatComponent />
 
-            <img src="/15.avif" alt="iPhone 15" />
-            <Button className="w-3/4 mt-4 bg-red-700">I'm in</Button>
-          </Card>
-        </div>
-        
         </motion.div>
-      </div>
-    </motion.div>
+      </motion.div>
+    
   );
 }
