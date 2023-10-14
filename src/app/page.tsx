@@ -133,37 +133,55 @@ export default function Home() {
               Your ultimate, iPhone plan, with Apple One
             </CardDescription>
 
-            <img src="/15.avif" alt="iPhone 15" />
-            <Button className="w-3/4 mt-4 bg-red-700">I'm in</Button>
-          </Card>
-          <Card className="bg-white bg-opacity-100 rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
-            <img
-              src="https://ss7.vzw.com/is/image/VerizonWireless/perk-tile-disney-bundle-3x2-small?&scl=1"
-              alt="Perk Image"
-              className="rounded-xl my-8 w-2/3"
-            />
-            <CardTitle className="mb-1 text-black mx-10 text-center">
-              We know you love movies, series & more
-            </CardTitle>
-            <CardFooter className="text-gray-700 flex-col text-sm">
-              Unlimited Plus Plan
-              <p className="text-xs text-green-600">$8.99/line perk savings</p>
-            </CardFooter>
-            <Button className="w-3/4 bg-red-700">Upgrade</Button>
-          </Card>
-          <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
-            <CardTitle className="mb-1 text-white">
-              Get an iPhone 15 Pro on us.
-            </CardTitle>
-            <CardDescription className="text-gray-300">
-              Looks like you're due for an upgrade
-            </CardDescription>
+              {/* {messages.map((m) => (
+                <div>{m.content}</div>
+              ))} */}
+            {/* </motion.ul> */}
+          {/* </Card> */}
+          <div className="flex space-x-4 max-w-full ">
+            <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+              <CardTitle className="mb-1 text-white">
+                Get an iPhone 15 Pro on us.
+              </CardTitle>
+              <CardDescription className="text-gray-300">
+                Looks like you're due for an upgrade
+              </CardDescription>
 
-            <img src="/15.avif" alt="iPhone 15" />
-            <Button className="w-3/4 mt-4 bg-red-700">I'm in</Button>
-          </Card>
-        </div>
-        
+              <img src="/15.avif" alt="iPhone 15" />
+              <Button className="w-3/4 mt-4 bg-red-700" onClick={playAudio}>
+                I'm in
+              </Button>
+            </Card>
+            <Card className="bg-white bg-opacity-100 rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+              <img
+                src="https://ss7.vzw.com/is/image/VerizonWireless/perk-tile-disney-bundle-3x2-small?&scl=1"
+                alt="Perk Image"
+                className="rounded-xl my-8 w-2/3"
+              />
+              <CardTitle className="mb-1 text-black mx-10 text-center">
+                We know you love movies, series & more
+              </CardTitle>
+              <CardFooter className="text-gray-700 flex-col text-sm">
+                Unlimited Plus Plan
+                <p className="text-xs text-green-600">
+                  $8.99/line perk savings
+                </p>
+              </CardFooter>
+              <Button className="w-3/4 bg-red-700">Upgrade</Button>
+            </Card>
+            <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+              <CardTitle className="mb-1 text-white">
+                Get an iPhone 15 Pro on us.
+              </CardTitle>
+              <CardDescription className="text-gray-300">
+                Looks like you're due for an upgrade
+              </CardDescription>
+
+              <img src="/15.avif" alt="iPhone 15" />
+              <Button className="w-3/4 mt-4 bg-red-700">I'm in</Button>
+            </Card>
+          </div>
+          <ChatComponent />
         </motion.div>
       </motion.div>
     
