@@ -23,6 +23,8 @@ export default function Home() {
   const [recapBulletPoints, setRecapBulletPoints] = useState<string[] | null>(
     null
   );
+  const [chatComponent, setChatComponent] = useState(false);
+  const [getStarted, setGetStarted] = useState(true);
 
   const [boxOne, setBoxOne] = useState<string | null>(null);
   useEffect(() => {
@@ -85,30 +87,14 @@ export default function Home() {
     }
   };
 
-  const listItem = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, y: 0 },
-  };
-
-  const container = {
-    hidden: { opacity: 0 },
-
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
   return (
     <motion.div className="bg-black min-h-screen">
     <motion.div className=" mx-auto flex-col px-24 flex pb-4 items-center justify-between">
       <Header />
       <div className="text-white text-4xl flex justify-center w-full mt-64 text-center mb-48">Welcome to the new Verizon Experience, Max.</div>
       {/* <a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3">Edit profile & settings</a> */}
-      </motion.div>
+      {getStarted && <Button className="bg-red-700 mt-4 mb-48 w-1/4" onClick={() => {setChatComponent(true); setGetStarted(false);}}>Get Started</Button>}
+    </motion.div>
       <motion.div
         className="flex items-center mx-auto flex-col mt-4 px-24"
         initial="hidden"
@@ -167,8 +153,7 @@ export default function Home() {
             <Button className="w-3/4 bg-red-700 mt-4">Chat</Button>
           </Card>
         </div> */}
-        <ChatComponent />
-
+        {chatComponent && <ChatComponent />}
         </motion.div>
       </motion.div>
     
