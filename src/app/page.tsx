@@ -13,10 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Textarea } from "@/components/ui/textarea"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Textarea } from "@/components/ui/textarea";
 import ChatComponent from "@/components/chatComponent";
-
 
 export default function Home() {
   const [recap, setRecap] = useState(null);
@@ -53,48 +52,27 @@ export default function Home() {
     getRecap();
   }, []);
 
-  const playAudio = async () => {
-    try {
-      // fetch audio from the server-side API
-      const response = await fetch("/api/textToSpeach", {
-        method: "POST",
-        body: JSON.stringify({
-          /* your request body if any */
-          text: "Hi, this is Blake",
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      // const audioBlob = await response.blob();
-      // const audioUrl = URL.createObjectURL(audioBlob);
-      // const audio = new Audio(audioUrl);
-      // console.log(audio);
-      // audio.play();
-      const audioContext = new window.AudioContext();
-      const source = audioContext.createBufferSource();
-      const arrayBuffer = await response.arrayBuffer();
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
-      source.buffer = audioBuffer;
-      source.connect(audioContext.destination);
-      source.start(0);
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
-    }
-  };
-
   return (
     <motion.div className="bg-black min-h-screen">
-    <motion.div className=" mx-auto flex-col px-24 flex pb-4 items-center justify-between">
-      <Header />
-      <div className="text-white text-4xl flex justify-center w-full mt-64 text-center mb-48">Welcome to the new Verizon Experience, Max.</div>
-      {/* <a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3">Edit profile & settings</a> */}
-      {getStarted && <Button className="bg-red-700 mt-4 mb-48 w-1/4" onClick={() => {setChatComponent(true); setGetStarted(false);}}>Get Started</Button>}
-    </motion.div>
+      <motion.div className=" mx-auto flex-col px-24 flex pb-4 items-center justify-between">
+        <Header />
+        <div className="text-white text-4xl flex justify-center w-full mt-64 text-center mb-48">
+          Welcome to the new Verizon Experience, Max.
+        </div>
+        {/* <a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3">Edit profile & settings</a> */}
+        {getStarted && (
+          <Button
+            className="bg-red-700 mt-4 mb-48 w-1/4"
+            onClick={() => {
+              setChatComponent(true);
+              setGetStarted(false);
+              //Uncomment out later
+            }}
+          >
+            Get Started
+          </Button>
+        )}
+      </motion.div>
       <motion.div
         className="flex items-center mx-auto flex-col mt-4 px-24"
         initial="hidden"
@@ -154,8 +132,7 @@ export default function Home() {
           </Card>
         </div> */}
         {chatComponent && <ChatComponent />}
-        </motion.div>
       </motion.div>
-    
+    </motion.div>
   );
 }
