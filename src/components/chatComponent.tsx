@@ -88,10 +88,12 @@ function ChatComponent({
   const messageDone = async () => {
     setTyping(true);
     setMessages([...messages, { role: "user", content: currentMessage }]);
-    submitMessage(currentMessage).then((response) => {
+    const tempMessage = currentMessage;
+    setCurrentMessage("");
+    submitMessage(tempMessage).then((response) => {
       setMessages([
         ...messages,
-        { role: "user", content: currentMessage },
+        { role: "user", content: tempMessage },
         { role: "system", content: response },
       ]);
     });
@@ -99,7 +101,6 @@ function ChatComponent({
     // setVisibleCards([visibleCards]);
     // setVisibleCards(["Card1", "Card2"]);
     handleVisibleCards(visibleCards);
-    setCurrentMessage("");
   };
 
   const handleTextareaKeyDown = (
@@ -245,7 +246,11 @@ function ChatComponent({
         {voiceMode ? (
           <React.Fragment>
             <div className="bg-white p-4 shadow-lg rounded-lg inline-flex items-center w-full h-10">
-              <p className="text-black">{currentMessage}</p>
+              {currentMessage ? (
+                <p className="text-black">{currentMessage}</p>
+              ) : (
+                <p className="text-gray-300">Please start talking...</p>
+              )}
             </div>
           </React.Fragment>
         ) : (

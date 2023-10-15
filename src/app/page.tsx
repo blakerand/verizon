@@ -13,9 +13,15 @@ import { User } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import CoverageMap from "@/components/verizon/verizonComponents/ CoverageMap";
+import { useSpeechRecognition } from "react-speech-recognition";
+
 import { useRouter } from "next/navigation";
-import { useUserContext } from '@/app/UserContext';
-import { variants, languageVariants, chatComponentVariants } from '@/components/animations';
+import { useUserContext } from "@/app/UserContext";
+import {
+  variants,
+  languageVariants,
+  chatComponentVariants,
+} from "@/components/animations";
 
 export default function Home() {
   const { currentUser, setCurrentUser } = useUserContext();
@@ -24,7 +30,7 @@ export default function Home() {
     setCurrentUser(null);
     setChatComponent(false);
   };
-  
+
   const router = useRouter();
   const [recap, setRecap] = useState(null);
   const [recapBulletPoints, setRecapBulletPoints] = useState<string[] | null>(
@@ -34,7 +40,17 @@ export default function Home() {
   const [getStarted, setGetStarted] = useState(true);
   const [boxOne, setBoxOne] = useState<string | null>(null);
   const [voiceMode, setVoiceMode] = useState(true);
+  const [voiceModeDisabled, setVoiceModeDisabled] = useState(false);
   const [visibleCards, setVisibleCards] = useState<string[]>([]);
+  const { browserSupportsSpeechRecognition } = useSpeechRecognition();
+
+  useEffect(() => {
+    if (!browserSupportsSpeechRecognition) {
+      console.error("Browser does not support speech recognition.");
+      setVoiceModeDisabled(true);
+      setVoiceMode(false);
+    }
+  }, []);
 
   const handleVisibleCards = (cards) => {
     console.log(cards);
@@ -171,16 +187,16 @@ export default function Home() {
         variants={variants(0)}
         className="min-h-screen bg-black flex flex-col items-center justify-center"
       >
-        <motion.img 
+        <motion.img
           initial="hidden"
           animate="visible"
           variants={variants(0.2)}
-          src="/logo.png" 
-          alt="Verizon Logo" 
-          width={60} 
-          height={50} 
+          src="/logo.png"
+          alt="Verizon Logo"
+          width={60}
+          height={50}
         />
-  
+
         <motion.p
           initial="hidden"
           animate="visible"
@@ -189,7 +205,7 @@ export default function Home() {
         >
           Select a User to Login
         </motion.p>
-        
+
         <motion.div
           initial="hidden"
           animate="visible"
@@ -238,17 +254,28 @@ export default function Home() {
   }
 
   return (
-    <motion.div className="bg-black min-h-screen" initial="hidden" animate="visible" variants={variants(0.2)}>
-      <motion.div className=" mx-auto flex-col px-24 flex pb-4 items-center justify-between" variants={variants(0.5)}>
-      <Header onSignOut={handleSignOutFromHome} />
+    <motion.div
+      className="bg-black min-h-screen"
+      initial="hidden"
+      animate="visible"
+      variants={variants(0.2)}
+    >
+      <motion.div
+        className=" mx-auto flex-col px-24 flex pb-4 items-center justify-between"
+        variants={variants(0.5)}
+      >
+        <Header onSignOut={handleSignOutFromHome} />
         {!anyComponentActive && (
-          <motion.div className="text-white text-4xl flex justify-center w-full mt-64 text-center" variants={languageVariants(0, false)}>
+          <motion.div
+            className="text-white text-4xl flex justify-center w-full mt-64 text-center"
+            variants={languageVariants(0, false)}
+          >
             Welcome to the new Verizon Experience, {currentUser.firstName}.
           </motion.div>
         )}
 
         {/* <motion.a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3" variants={questionVariants()}>Edit profile & settings</motion.a> */}
-        
+
         {getStarted && (
           <motion.div variants={languageVariants(1, true)}>
             <Button
@@ -262,21 +289,33 @@ export default function Home() {
             </Button>
           </motion.div>
         )}
-        
+
         {getStarted && (
-          <motion.div className="flex items-center mt-4 mb-48" variants={languageVariants(2, true)}>
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="voice-mode"
-                className="bg-red-700 text-red-700"
-                onCheckedChange={(checked) => {
-                  setVoiceMode(checked);
-                }}
-                checked={voiceMode}
-              />
-              <Label htmlFor="voice-mode" className="text-white">
-                Voice Mode
-              </Label>
+          <motion.div
+            className="flex items-center mt-4 mb-48"
+            variants={languageVariants(2, true)}
+          >
+            <div className="flex items-center flex-col space-x-2">
+              <div className="flex flex-row items-center space-x-2 mb-2">
+                <Switch
+                  id="voice-mode"
+                  className="bg-red-700 text-red-700"
+                  onCheckedChange={(checked) => {
+                    setVoiceMode(checked);
+                  }}
+                  disabled={voiceModeDisabled}
+                  checked={voiceMode}
+                />
+                <Label htmlFor="voice-mode" className="text-white">
+                  Voice Mode
+                </Label>
+              </div>
+
+              {voiceModeDisabled && (
+                <p className="text-gray-300 text-xs ">
+                  Voice Mode works best on Chrome and Safari
+                </p>
+              )}
             </div>
           </motion.div>
         )}
@@ -284,15 +323,17 @@ export default function Home() {
       <ComponentManager config={componentConfig} />
 
       {chatComponent && (
-    <motion.div
-      initial="hidden"
-      animate={chatComponent ? "visible" : "hidden"}
-      variants={chatComponentVariants}
-    >
-      <ChatComponent voiceMode={voiceMode} handleVisibleCards={handleVisibleCards} />
-    </motion.div>
-  )}
+        <motion.div
+          initial="hidden"
+          animate={chatComponent ? "visible" : "hidden"}
+          variants={chatComponentVariants}
+        >
+          <ChatComponent
+            voiceMode={voiceMode}
+            handleVisibleCards={handleVisibleCards}
+          />
+        </motion.div>
+      )}
     </motion.div>
   );
-  
 }
