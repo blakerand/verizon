@@ -1,5 +1,5 @@
 import openai from "../../../../services/openai.service";
-
+import verizonInfo from "@/components/verizon/verizonInfo";
 export async function POST(req: Request) {
   const body = await req.json();
 
@@ -7,6 +7,10 @@ export async function POST(req: Request) {
   try {
     const chatCompletion = await openai.chat.completions.create({
       messages: [
+        {
+          role: "system",
+          content: "Up to date verizon info: " + JSON.stringify(verizonInfo),
+        },
         {
           role: "system",
           // content:
