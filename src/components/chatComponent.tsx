@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -213,9 +214,9 @@ function ChatComponent({
                 <Typewriter
                   onInit={async (typewriter) => {
                     //Uncomment for voice
-                    // if (index === messages.length - 1 && m.role === "system") {
-                    //   await playAudio(m.content);
-                    // }
+                    if (index === messages.length - 1 && m.role === "system") {
+                      await playAudio(m.content);
+                    }
                     typewriter
                       .typeString(m.content)
                       .callFunction(() => {

@@ -11,6 +11,7 @@ import SocialCard2 from "./verizonComponents/SocialCard2";
 import SocialCard3 from "./verizonComponents/SocialCard3";
 import Pixel8Card from "./verizonComponents/Pixel8Card";
 import FiveGCard from "./verizonComponents/FiveGCard";
+import Iphone15Card from "./verizonComponents/iphone15Card";
 import CoverageMap from "./verizonComponents/ CoverageMap";
 import { motion, AnimatePresence } from "framer-motion";
 import { chatComponentVariants } from "@/components/animations";
@@ -35,6 +36,7 @@ function ComponentManager({ config }) {
   const [showPixel8Card, setShowPixel8Card] = useState(config.pixel8Card);
   const [showFiveGCard, setShowFiveGCard] = useState(config.fiveGCard);
   const [showCoverageMap, setShowCoverageMap] = useState(config.coverageMap);
+  const [showiphone15Card, setShowiphone15Card] = useState(config.iphone15Card);
   const [firstComponentRendered, setFirstComponentRendered] = useState(false);
 
   useEffect(() => {
@@ -51,6 +53,7 @@ function ComponentManager({ config }) {
     setShowPixel8Card(config.pixel8Card);
     setShowFiveGCard(config.fiveGCard);
     setShowCoverageMap(config.coverageMap);
+    setShowiphone15Card(config.iphone15Card);
   }, [config]);
 
   return (

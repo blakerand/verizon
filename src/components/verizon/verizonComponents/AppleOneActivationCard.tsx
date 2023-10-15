@@ -12,8 +12,7 @@ import Card from "@/components/verizon/verizonComponents/Card";
 function AppleOneActivationCard() {
   return Card({
     title: "Activate Apple One for Free.",
-    description:
-      " Apple One is included in your plan and haven't activated it.",
+    description: "Apple One is included in your plan and haven't activated it.",
     image:
       "https://ss7.vzw.com/is/image/VerizonWireless/perk-tile-apple-one-3x2-small?&scl=1",
     buttonText: "Activate",
