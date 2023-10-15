@@ -14,18 +14,6 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { useUserContext } from "@/app/UserContext";
 
-const submitMessage = async (message: string) => {
-  const response = await fetch("/api/chat", {
-    method: "POST",
-    body: JSON.stringify({
-      message: message,
-      profile: users[0],
-    }),
-  });
-  const responseBody = await response.json();
-  return responseBody.message;
-};
-
 const getCards = async (message: string) => {
   const response = await fetch("/api/pickCards", {
     method: "POST",
@@ -51,6 +39,18 @@ function ChatComponent({
     console.error("currentUser or currentUser.firstName is not defined.");
     return null; // or return some kind of placeholder/error component
   }
+
+  const submitMessage = async (message: string) => {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      body: JSON.stringify({
+        message: message,
+        profile: currentUser,
+      }),
+    });
+    const responseBody = await response.json();
+    return responseBody.message;
+  };
 
   const [messages, setMessages] = useState([
     {

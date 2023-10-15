@@ -50,6 +50,17 @@ export default function Home() {
       setVoiceModeDisabled(true);
       setVoiceMode(false);
     }
+    //Check if Arc Broswer
+    setTimeout(function () {
+      if (
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--arc-palette-background"
+        )
+      ) {
+        setVoiceModeDisabled(true);
+        setVoiceMode(false);
+      }
+    }, 1000);
   }, []);
 
   const handleVisibleCards = (cards) => {
