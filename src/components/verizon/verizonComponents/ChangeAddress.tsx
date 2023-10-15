@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 function ChangeAddressCard() {
@@ -24,13 +24,17 @@ function ChangeAddressCard() {
           1234 Main St.
         </div>
         <div className="text-gray-300 flex-col text-sm px-10 text-center">
-            New York, NY 10001
+          New York, NY 10001
         </div>
         <div className="text-gray-300 flex-col text-sm px-10 text-center">
-            United States
+          United States
         </div>
       </div>
-      <input type="text" className="px-4 py-2 rounded-lg mt-4" placeholder="New Address" />
+      <input
+        type="text"
+        className="px-4 py-2 rounded-lg mt-4"
+        placeholder="New Address"
+      />
       <Button className="w-1/2 bg-red-700 mt-4">Save</Button>
     </Card>
   );

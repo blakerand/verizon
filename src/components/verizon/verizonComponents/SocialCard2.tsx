@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Card,
   CardContent,
   CardDescription,
   CardFooter,
@@ -8,23 +7,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Card from "@/components/verizon/verizonComponents/Card";
 
-function SocialCard2() {
-  return (
-    <Card className="bg-black bg-opacity-100 rounded-lg w-full h-full p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
-      <CardTitle className="mb-1 top-10 absolute text-white mx-10 text-center">
-        Closing the digital divide.
-      </CardTitle>
-      <div className="text-gray-300 absolute top-[70px] flex-col text-sm px-10 text-center">
-        Our commitment to helping schools and small businesses
-        succeed in today's digital landscape is changing lives.
-      </div>
-      <img
-        src="/Social2.jpg"
-        className="rounded-xl my-16 w-2/3"
-      />
-      <Button className="w-3/4 bg-red-700 mt-4 absolute bottom-10">Learn more</Button>    </Card>
-  );
+function SocialCard1() {
+  return Card({
+    title: "Closing the digital divide.",
+    description:
+      " Our commitment to helping schools and small businesses succeed in today's digital landscape is changing lives.",
+    image: "/Social2.jpg",
+    buttonText: "Learn more",
+  });
 }
 
-export default SocialCard2;
+export default SocialCard1;
