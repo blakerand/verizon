@@ -27,9 +27,9 @@ export default function Home() {
   // };
 
   const componentConfig = {
-    ultimatePlan: false,
-    appleOneActivation: false,
-    screenRepair: false,
+    ultimatePlan: true,
+    appleOneActivation: true,
+    screenRepair: true,
   };
 
   useEffect(() => {
@@ -119,10 +119,11 @@ export default function Home() {
           </Button>
         )}
       </motion.div>
+      <ComponentManager config={componentConfig} />
+
       {chatComponent && 
         <ChatComponent />}
 
-      <ComponentManager config={componentConfig} />
     </motion.div>
   );
 }
