@@ -18,7 +18,7 @@ function Card({ title, description, image, buttonText }) {
       <div className="text-gray-300 flex-col text-sm px-10 text-center">
         {description}
       </div>
-      {typeof image === "function" ? image() : <img src={image} className={`w-[80%] rounded-lg ${title.includes('Free') || title.includes('screen') || title.includes('Building') || title.includes('divide') || title.includes('tomorrow') || title.includes('Social') ? 'mt-20 ' : 'mt-0'}`} />}
+      {typeof image === "function" ? image() : <img src={image} className={`w-[80%] rounded-lg ${title.includes('Free') || title.includes('screen') || title.includes('Building') || title.includes('divide') || title.includes('tomorrow') || title.includes('Social') || title.includes('Quality') ? 'mt-20 ' : 'mt-0'}`} />}
       <Button className="w-3/4 bg-red-700 mt-4 absolute bottom-10">
         {buttonText}
       </Button>

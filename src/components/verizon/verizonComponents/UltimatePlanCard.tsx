@@ -13,7 +13,7 @@ function UltimatePlanCard() {
   return Card({
     title: "Your ultimate, iPhone plan, with Apple One.",
     description:
-      "Net zero carbon emissions in our operations by 2035. 100% of our total annual electricity consumption backed by renewable energy by 2030.",
+      "You are currently on the ultimate plan. You can manage your plan here.",
     image: "/15.avif",
     buttonText: "Manage Plan",
   });

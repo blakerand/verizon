@@ -90,18 +90,18 @@ export default function Home() {
   };
 
   const [componentConfig, setComponentConfig] = useState<ComponentConfig>({
-    ultimatePlan: false,
+    ultimatePlan: true,
     appleOneActivation: false,
     screenRepair: false,
     changeAddress: false,
     dataCard: false,
     resetPasswordCard: false,
     s23Card: false,
-    socialCard1: true,
-    socialCard2: true,
-    socialCard3: true,
-    pixel8Card: false,
-    fiveGCard: false,
+    socialCard1: false,
+    socialCard2: false,
+    socialCard3: false,
+    pixel8Card: true,
+    fiveGCard: true,
     coverageMap: false,
   });
 
