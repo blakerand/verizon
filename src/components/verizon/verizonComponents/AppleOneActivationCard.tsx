@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 
 function AppleOneActivationCard() {
   return (
-    <Card className="bg-black bg-opacity-100 rounded-lg w-1/3 p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+    <Card className="bg-black bg-opacity-100 rounded-lg w-full h-full p-4 flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
       <CardTitle className="mb-1 text-white mx-10 text-center">
         Activate Apple One for Free.
       </CardTitle>

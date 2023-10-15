@@ -12,6 +12,8 @@ import SocialCard3 from "./verizonComponents/SocialCard3";
 import Pixel8Card from "./verizonComponents/Pixel8Card";
 import FiveGCard from "./verizonComponents/FiveGCard";
 import CoverageMap from "./verizonComponents/ CoverageMap";
+import { motion, AnimatePresence } from "framer-motion";
+import { chatComponentVariants } from "@/components/animations";
 
 function ComponentManager({ config }) {
   const [showUltimatePlan, setShowUltimatePlan] = useState(config.ultimatePlan);
@@ -33,6 +35,7 @@ function ComponentManager({ config }) {
   const [showPixel8Card, setShowPixel8Card] = useState(config.pixel8Card);
   const [showFiveGCard, setShowFiveGCard] = useState(config.fiveGCard);
   const [showCoverageMap, setShowCoverageMap] = useState(config.coverageMap);
+  const [firstComponentRendered, setFirstComponentRendered] = useState(false);
 
   useEffect(() => {
     setShowUltimatePlan(config.ultimatePlan);
@@ -51,21 +54,47 @@ function ComponentManager({ config }) {
   }, [config]);
 
   return (
-    <div className="flex flex-row space-x-4 mx-20 max-h-[550px] justify-center">
-      {showSocialCard1 && <SocialCard1 />}
-      {showSocialCard2 && <SocialCard2 />}
-      {showSocialCard3 && <SocialCard3 />}
-      {showPixel8Card && <Pixel8Card />}
-      {showFiveGCard && <FiveGCard />}
-      {showUltimatePlan && <UltimatePlanCard />}
-      {showAppleOneActivation && <AppleOneActivationCard />}
-      {showScreenRepair && <ScreenRepairCard />}
-      {showChangeAddress && <ChangeAddressCard />}
-      {showDataCard && <DataCard />}
-      {showResetPasswordCard && <ResetPasswordCard />}
-      {showS23Card && <S23Card />}
-      {showCoverageMap && <CoverageMap />}
-    </div>
+    <motion.div className="flex flex-row grid-rows-1 space-x-4 mx-20 max-h-[550px] justify-center">
+      {showSocialCard1 &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showSocialCard1 ? "visible" : "hidden"}
+      variants={chatComponentVariants}>  <SocialCard1 /></motion.div>}
+      {showSocialCard2 &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showSocialCard2 ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <SocialCard2 /></motion.div>}
+      {showSocialCard3 &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showSocialCard3 ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <SocialCard3 /></motion.div>}
+      {showPixel8Card &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showPixel8Card ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <Pixel8Card /></motion.div>}
+      {showFiveGCard &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showFiveGCard ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <FiveGCard /></motion.div>}
+      {showUltimatePlan &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showUltimatePlan ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <UltimatePlanCard /></motion.div>}
+      {showAppleOneActivation &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showAppleOneActivation ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <AppleOneActivationCard /></motion.div>}
+      {showScreenRepair &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showScreenRepair ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <ScreenRepairCard /></motion.div>}
+      {showChangeAddress &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showChangeAddress ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <ChangeAddressCard /></motion.div>}
+      {showDataCard &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showDataCard ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <DataCard /></motion.div>}
+      {showResetPasswordCard &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showResetPasswordCard ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <ResetPasswordCard /></motion.div>}
+      {showS23Card &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showS23Card ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <S23Card /></motion.div>}
+      {showCoverageMap &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      animate={showCoverageMap ? "visible" : "hidden"}
+      variants={chatComponentVariants}> <CoverageMap /></motion.div>}
+   </motion.div> 
   );
 }
 

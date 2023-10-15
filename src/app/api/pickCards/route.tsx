@@ -63,8 +63,8 @@ export async function POST(req: Request) {
           )}`,
         },
       ],
-      // model: "gpt-4",
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
+      // model: "gpt-3.5-turbo",
     });
     const message = chatCompletion["choices"][0]["message"]["content"];
     return new Response(JSON.stringify({ message: message }));
