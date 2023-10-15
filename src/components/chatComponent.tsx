@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import Typewriter from "typewriter-effect";
+import { users } from "@/users";
 
 const playAudio = async (message: string) => {
   try {
@@ -32,6 +33,18 @@ const playAudio = async (message: string) => {
   }
 };
 
+const submitMessage = async (message: string) => {
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    body: JSON.stringify({
+      message: "data usage",
+      profile: users[0],
+    }),
+  });
+  const responseBody = await response.json(); // Extract the response content
+  return responseBody.message;
+};
+
 function ChatComponent() {
   const [messages, setMessages] = useState([
     {
@@ -51,27 +64,35 @@ function ChatComponent() {
               <AvatarImage src="/logo.png" />
             </Avatar>
             <div className="text-white bg-gray-700 rounded-lg p-2">
-              <Typewriter
-                onInit={async (typewriter) => {
-                  //Uncomment for voice
-                  // if (index === messages.length - 1 && m.role === "system")
-                  //   await playAudio(m.content);
-                  typewriter
-                    .typeString(m.content)
-                    .callFunction(() => {
-                      const cursorElement = document.querySelector(
-                        ".Typewriter__cursor"
-                      ) as HTMLElement;
-                      if (cursorElement) {
-                        cursorElement.style.display = "none";
-                      }
-                    })
-                    .start();
-                }}
-                options={{
-                  delay: 25,
-                }}
-              />
+              {m.role === "user" ? (
+                <div>{m.content}</div>
+              ) : (
+                <Typewriter
+                  onInit={async (typewriter) => {
+                    //Uncomment for voice
+                    // if (index === messages.length - 1 && m.role === "system")
+                    //   await playAudio(m.content);
+
+                    typewriter
+                      .typeString(m.content)
+                      .callFunction(() => {
+                        const cursorElements = document.querySelectorAll(
+                          ".Typewriter__cursor"
+                        );
+                        const latestCursorElement = cursorElements[
+                          cursorElements.length - 1
+                        ] as HTMLElement;
+                        if (latestCursorElement) {
+                          latestCursorElement.style.display = "none";
+                        }
+                      })
+                      .start();
+                  }}
+                  options={{
+                    delay: index === 0 ? 25 : 50,
+                  }}
+                />
+              )}
             </div>
           </div>
         ))}
@@ -91,6 +112,13 @@ function ChatComponent() {
               ...messages,
               { role: "user", content: currentMessage },
             ]);
+            submitMessage(currentMessage).then((response) => {
+              setMessages([
+                ...messages,
+                { role: "user", content: currentMessage },
+                { role: "system", content: response },
+              ]);
+            });
           }}
         >
           Send

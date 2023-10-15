@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "xi-api-key": apiKey,
+      "xi-api-key": apiKey ?? "",
       accept: "audio/mpeg",
     },
     body: JSON.stringify(data),

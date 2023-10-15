@@ -66,7 +66,6 @@ export default function Home() {
             onClick={() => {
               setChatComponent(true);
               setGetStarted(false);
-              //Uncomment out later
             }}
           >
             Get Started
