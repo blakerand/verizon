@@ -11,7 +11,7 @@ import SocialCard2 from "./verizonComponents/SocialCard2";
 import SocialCard3 from "./verizonComponents/SocialCard3";
 import Pixel8Card from "./verizonComponents/Pixel8Card";
 import FiveGCard from "./verizonComponents/FiveGCard";
-import Iphone15Card from "./verizonComponents/Iphone15Card";
+import IphoneFIFTHTEENCard from "./verizonComponents/IphoneFIFTHTEENCard";
 import CoverageMap from "./verizonComponents/ CoverageMap";
 import { motion, AnimatePresence } from "framer-motion";
 import { chatComponentVariants } from "@/components/animations";
@@ -177,6 +177,17 @@ function ComponentManager({ config }) {
         >
           {" "}
           <ResetPasswordCard />
+        </motion.div>
+      )}
+      {showiphone15Card && (
+        <motion.div
+          className="w-1/4"
+          initial="hidden"
+          animate={showiphone15Card ? "visible" : "hidden"}
+          variants={chatComponentVariants}
+        >
+          {" "}
+          <IphoneFIFTHTEENCard />
         </motion.div>
       )}
       {showS23Card && (

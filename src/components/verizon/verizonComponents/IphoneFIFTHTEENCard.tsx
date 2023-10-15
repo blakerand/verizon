@@ -1,6 +1,6 @@
 import Card from "@/components/verizon/verizonComponents/Card";
 
-function Iphone15Card() {
+function IphoneFIFTHTEENCard() {
   return Card({
     title: "Get an iPhone 15 Pro Max on us.",
     description: "You're in luck for an upgrade.",
@@ -9,4 +9,4 @@ function Iphone15Card() {
   });
 }
 
-export default Iphone15Card;
+export default IphoneFIFTHTEENCard;
