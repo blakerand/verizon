@@ -214,9 +214,9 @@ function ChatComponent({
                 <Typewriter
                   onInit={async (typewriter) => {
                     //Uncomment for voice
-                    // if (index === messages.length - 1 && m.role === "system") {
-                    //   await playAudio(m.content);
-                    // }
+                    if (index === messages.length - 1 && m.role === "system") {
+                      await playAudio(m.content);
+                    }
                     typewriter
                       .typeString(m.content)
                       .callFunction(() => {
