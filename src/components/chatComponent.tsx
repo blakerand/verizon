@@ -204,29 +204,6 @@ function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
       </div>
 
       <div className="flex items-center mt-2 w-full">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-10 h-10"
-          viewBox="0 0 24 24"
-          strokeWidth={1.2}
-          stroke="white"
-          fill="none"
-        >
-          <rect
-            x="2.5"
-            y="2.5"
-            width="19"
-            height="19"
-            stroke="white"
-            strokeWidth="1.5"
-            fill="none"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
-          />
-        </svg>
         {voiceMode ? (
           <React.Fragment>
             <div className="bg-white p-4 shadow-lg rounded-lg inline-flex items-center w-full h-10">
