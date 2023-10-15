@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -5,36 +6,13 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import Typewriter from "typewriter-effect";
 import { users } from "@/users";
-import { Square } from "lucide-react";
+import { Group, Square } from "lucide-react";
+import "babel-polyfill";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 const currentUser = users[0];
-
-const playAudio = async (message: string) => {
-  try {
-    // fetch audio from the server-side API
-    const response = await fetch("/api/textToSpeach", {
-      method: "POST",
-      body: JSON.stringify({
-        text: message,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const audioContext = new window.AudioContext();
-    const source = audioContext.createBufferSource();
-    const arrayBuffer = await response.arrayBuffer();
-    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
-    source.buffer = audioBuffer;
-    source.connect(audioContext.destination);
-    source.start(0);
-  } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
-  }
-};
 
 const submitMessage = async (message: string) => {
   const response = await fetch("/api/chat", {
@@ -48,7 +26,7 @@ const submitMessage = async (message: string) => {
   return responseBody.message;
 };
 
-function ChatComponent() {
+function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
   const [messages, setMessages] = useState([
     {
       role: "system",
@@ -62,6 +40,7 @@ function ChatComponent() {
 
   const [currentMessage, setCurrentMessage] = useState("");
   const messagesRef = useRef<HTMLDivElement | null>(null);
+  const [typing, setTyping] = useState(true);
 
   useEffect(() => {
     if (messagesRef.current) {
@@ -69,22 +48,82 @@ function ChatComponent() {
     }
   }, [messages]);
 
+  const messageDone = () => {
+    setTyping(true);
+    setMessages([...messages, { role: "user", content: currentMessage }]);
+    submitMessage(currentMessage).then((response) => {
+      setMessages([
+        ...messages,
+        { role: "user", content: currentMessage },
+        { role: "system", content: response },
+      ]);
+    });
+    setCurrentMessage("");
+  };
+
   const handleTextareaKeyDown = (
     e: React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      setMessages([...messages, { role: "user", content: currentMessage }]);
-      submitMessage(currentMessage).then((response) => {
-        setMessages([
-          ...messages,
-          { role: "user", content: currentMessage },
-          { role: "system", content: response },
-        ]);
-      });
-      setCurrentMessage("");
+      messageDone();
     }
   };
+
+  const playAudio = async (message: string) => {
+    try {
+      // fetch audio from the server-side API
+      const response = await fetch("/api/textToSpeach", {
+        method: "POST",
+        body: JSON.stringify({
+          text: message,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const audioContext = new window.AudioContext();
+      const source = audioContext.createBufferSource();
+      const arrayBuffer = await response.arrayBuffer();
+      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+      source.buffer = audioBuffer;
+      source.connect(audioContext.destination);
+      source.onended = () => {
+        setTyping(false);
+      };
+      source.start(0);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+  };
+
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
+  useEffect(() => {
+    setCurrentMessage(transcript);
+  }, [transcript]);
+
+  useEffect(() => {
+    if (!listening) {
+      if (currentMessage !== "") {
+        messageDone();
+      }
+    }
+  }, [listening]);
+
+  useEffect(() => {
+    if (!typing) {
+      SpeechRecognition.startListening();
+    }
+  }, [typing]);
 
   return (
     <Card
@@ -126,11 +165,13 @@ function ChatComponent() {
                 <Typewriter
                   onInit={async (typewriter) => {
                     //Uncomment for voice
-                    // if (index === messages.length - 1 && m.role === "system")
-                    //   await playAudio(m.content);
+                    if (index === messages.length - 1 && m.role === "system") {
+                      await playAudio(m.content);
+                    }
 
                     typewriter
                       .typeString(m.content)
+
                       .callFunction(() => {
                         const cursorElements = document.querySelectorAll(
                           ".Typewriter__cursor"
@@ -140,6 +181,9 @@ function ChatComponent() {
                         ] as HTMLElement;
                         if (latestCursorElement) {
                           latestCursorElement.style.display = "none";
+                        }
+                        if (!voiceMode) {
+                          setTyping(false);
                         }
                       })
                       .start();
@@ -155,55 +199,31 @@ function ChatComponent() {
       </div>
 
       <div className="flex items-center mt-2 w-full">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-10 h-10"
-          viewBox="0 0 24 24"
-          strokeWidth={1.2}
-          stroke="white"
-          fill="none"
-        >
-          <rect
-            x="2.5"
-            y="2.5"
-            width="19"
-            height="19"
-            stroke="white"
-            strokeWidth="1.5"
-            fill="none"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
-          />
-        </svg>
-        <Textarea
-          className="flex-grow rounded-lg text-black"
-          value={currentMessage}
-          onChange={(e) => setCurrentMessage(e.target.value)}
-          onKeyDown={handleTextareaKeyDown}
-          placeholder="Type your message..."
-        />
-        <Button
-          className="ml-2 bg-red-700"
-          onClick={() => {
-            setMessages([
-              ...messages,
-              { role: "user", content: currentMessage },
-            ]);
-            submitMessage(currentMessage).then((response) => {
-              setMessages([
-                ...messages,
-                { role: "user", content: currentMessage },
-                { role: "system", content: response },
-              ]);
-            });
-            setCurrentMessage("");
-          }}
-        >
-          Send
-        </Button>
+        {voiceMode ? (
+          <React.Fragment>
+            <div className="bg-white p-4 shadow-lg rounded-lg inline-flex items-center w-full h-10">
+              <p className="text-black">{currentMessage}</p>
+            </div>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Textarea
+              className="flex-grow rounded-lg text-black h-10"
+              value={currentMessage}
+              onChange={(e) => setCurrentMessage(e.target.value)}
+              onKeyDown={handleTextareaKeyDown}
+              placeholder="Type your message..."
+            />
+            <Button
+              className="ml-2 bg-red-700"
+              onClick={() => {
+                messageDone();
+              }}
+            >
+              Send
+            </Button>
+          </React.Fragment>
+        )}
       </div>
     </Card>
   );

@@ -10,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import ChatComponent from "@/components/chatComponent";
 import ComponentManager from "@/components/verizon/componentManager";
 import { User } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const currentUser = users[0];
 
@@ -21,6 +23,7 @@ export default function Home() {
   const [chatComponent, setChatComponent] = useState(false);
   const [getStarted, setGetStarted] = useState(true);
   const [boxOne, setBoxOne] = useState<string | null>(null);
+  const [voiceMode, setVoiceMode] = useState(true);
   // const chatComponentVariants = {
   //   hidden: { y: "100vh" },
   //   visible: { y: "32vh", transition: { type: "spring", stiffness: 60 } },
@@ -109,7 +112,7 @@ export default function Home() {
         {/* <a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3">Edit profile & settings</a> */}
         {getStarted && (
           <Button
-            className="bg-red-700 mt-4 mb-48 w-1/4"
+            className="bg-red-700 mt-4  w-1/4"
             onClick={() => {
               setChatComponent(true);
               setGetStarted(false);
@@ -118,12 +121,27 @@ export default function Home() {
             Get Started
           </Button>
         )}
+        {getStarted && (
+          <div className="flex items-center mt-4 mb-48">
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="voice-mode"
+                className="bg-red-700"
+                onCheckedChange={(checked) => {
+                  setVoiceMode(checked);
+                }}
+                checked={voiceMode}
+              />
+              <Label htmlFor="voice-mode" className="text-white">
+                Voice Mode
+              </Label>
+            </div>
+          </div>
+        )}
       </motion.div>
       <ComponentManager config={componentConfig} />
 
-      {chatComponent && 
-        <ChatComponent />}
-
+      {chatComponent && <ChatComponent voiceMode={voiceMode} />}
     </motion.div>
   );
 }
