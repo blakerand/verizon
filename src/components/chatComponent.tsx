@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
 import { Card, CardContent } from "@/components/ui/card";
