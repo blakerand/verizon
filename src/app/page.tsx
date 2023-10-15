@@ -26,6 +26,13 @@ import {
 export default function Home() {
   const { currentUser, setCurrentUser } = useUserContext();
 
+  useEffect(() => {
+    const newComponentConfig = Object.fromEntries(
+      Object.entries(componentConfig).map(([key, value]) => [key, false])
+    );
+    setComponentConfig(newComponentConfig as ComponentConfig);
+  }, [currentUser]);
+
   const handleSignOutFromHome = () => {
     setCurrentUser(null);
     setChatComponent(false);
@@ -91,7 +98,7 @@ export default function Home() {
   };
 
   const [componentConfig, setComponentConfig] = useState<ComponentConfig>({
-    ultimatePlan: true,
+    ultimatePlan: false,
     appleOneActivation: false,
     screenRepair: false,
     changeAddress: false,
@@ -127,32 +134,6 @@ export default function Home() {
       console.log(newComponentConfig);
     }
   }, [visibleCards]);
-
-  useEffect(() => {
-    const getRecap = async () => {
-      const response = await fetch("/api/userInfoBulletPoint", {
-        method: "POST",
-        body: JSON.stringify({
-          topic: "data usage",
-          user: users[0],
-        }),
-      });
-
-      //response has a readable stream
-      if (response.body) {
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let result = "";
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          result += decoder.decode(value);
-          setBoxOne(result);
-        }
-      }
-    };
-    getRecap();
-  }, []);
 
   const playAudio = async () => {
     try {
@@ -286,8 +267,6 @@ export default function Home() {
             Welcome to the new Verizon Experience, {currentUser.firstName}.
           </motion.div>
         )}
-
-        {/* <motion.a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3" variants={questionVariants()}>Edit profile & settings</motion.a> */}
 
         {getStarted && (
           <motion.div variants={languageVariants(1, true)}>

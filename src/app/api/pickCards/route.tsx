@@ -44,6 +44,10 @@ const cardDescriptions = [
     cardName: "coverageMap",
     description: "Displays coverage map, standalone use only.",
   },
+  {
+    cardName: "iphone15Card",
+    description: "Free iphone 15 pro upgrade",
+  },
 ];
 
 export async function POST(req: Request) {
