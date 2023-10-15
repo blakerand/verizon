@@ -26,12 +26,12 @@ import {
 export default function Home() {
   const { currentUser, setCurrentUser } = useUserContext();
 
-  // useEffect(() => {
-  //   const newComponentConfig = Object.fromEntries(
-  //     Object.entries(componentConfig).map(([key, value]) => [key, false])
-  //   );
-  //   setComponentConfig(newComponentConfig as ComponentConfig);
-  // }, [currentUser]);
+  useEffect(() => {
+    const newComponentConfig = Object.fromEntries(
+      Object.entries(componentConfig).map(([key, value]) => [key, false])
+    );
+    setComponentConfig(newComponentConfig as ComponentConfig);
+  }, [currentUser]);
 
   const handleSignOutFromHome = () => {
     setCurrentUser(null);
@@ -105,8 +105,8 @@ export default function Home() {
     dataCard: false,
     resetPasswordCard: false,
     s23Card: false,
-    socialCard1: true,
-    socialCard2: true,
+    socialCard1: false,
+    socialCard2: false,
     socialCard3: true,
     pixel8Card: false,
     iphone15Card: false,
