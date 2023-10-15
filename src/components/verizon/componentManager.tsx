@@ -11,7 +11,7 @@ import SocialCard2 from "./verizonComponents/SocialCard2";
 import SocialCard3 from "./verizonComponents/SocialCard3";
 import Pixel8Card from "./verizonComponents/Pixel8Card";
 import FiveGCard from "./verizonComponents/FiveGCard";
-import Iphone15Card from "./verizonComponents/Iphone15Card";
+import Iphone15Card from "./verizonComponents/iphone15Card";
 import CoverageMap from "./verizonComponents/ CoverageMap";
 import { motion, AnimatePresence } from "framer-motion";
 import { chatComponentVariants } from "@/components/animations";
