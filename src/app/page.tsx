@@ -13,10 +13,19 @@ import { User } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import CoverageMap from "@/components/verizon/verizonComponents/ CoverageMap";
-
-const currentUser = users[0];
+import { useRouter } from "next/navigation";
+import { useUserContext } from '@/app/UserContext';
+import { variants, languageVariants, chatComponentVariants } from '@/components/animations';
 
 export default function Home() {
+  const { currentUser, setCurrentUser } = useUserContext();
+
+  const handleSignOutFromHome = () => {
+    setCurrentUser(null);
+    setChatComponent(false);
+  };
+  
+  const router = useRouter();
   const [recap, setRecap] = useState(null);
   const [recapBulletPoints, setRecapBulletPoints] = useState<string[] | null>(
     null
@@ -154,34 +163,112 @@ export default function Home() {
     (value) => value
   );
 
+  if (!currentUser) {
+    return (
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={variants(0)}
+        className="min-h-screen bg-black flex flex-col items-center justify-center"
+      >
+        <motion.img 
+          initial="hidden"
+          animate="visible"
+          variants={variants(0.2)}
+          src="/logo.png" 
+          alt="Verizon Logo" 
+          width={60} 
+          height={50} 
+        />
+  
+        <motion.p
+          initial="hidden"
+          animate="visible"
+          variants={variants(0.4)}
+          className="text-white text-3xl font-bold"
+        >
+          Select a User to Login
+        </motion.p>
+        
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={variants(0.6)}
+          className="space-x-4 mt-8 flex flex-row"
+        >
+          {users.map((user, index) => (
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={variants(0.7 + index * 0.1)}
+              className="flex flex-col justify-center text-center items-center"
+              key={index}
+            >
+              <motion.div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100px",
+                  height: "100px",
+                  backgroundColor: "#ffffff",
+                  color: "black",
+                  fontSize: "18px",
+                  borderRadius: "50%",
+                }}
+              >
+                <p className="text-4xl font-bold">
+                  {user.firstName.charAt(0).toUpperCase()}
+                </p>
+              </motion.div>
+              <Button
+                className="bg-red-700 font-light mt-5 text-white"
+                onClick={() => {
+                  setCurrentUser(user);
+                  setGetStarted(true);
+                }}
+              >
+                Login as {user.firstName}
+              </Button>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
+    );
+  }
+
   return (
-    <motion.div className="bg-black min-h-screen">
-      <motion.div className=" mx-auto flex-col px-24 flex pb-4 items-center justify-between">
-        <Header />
+    <motion.div className="bg-black min-h-screen" initial="hidden" animate="visible" variants={variants(0.2)}>
+      <motion.div className=" mx-auto flex-col px-24 flex pb-4 items-center justify-between" variants={variants(0.5)}>
+      <Header onSignOut={handleSignOutFromHome} />
         {!anyComponentActive && (
-          <div className="text-white text-4xl flex justify-center w-full mt-64 text-center">
+          <motion.div className="text-white text-4xl flex justify-center w-full mt-64 text-center" variants={languageVariants(0, false)}>
             Welcome to the new Verizon Experience, {currentUser.firstName}.
-          </div>
+          </motion.div>
         )}
 
-        {/* <a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3">Edit profile & settings</a> */}
+        {/* <motion.a href="#" className="text-white text-sm underline-offset-4 underline text-left flex justify-start w-full mt-3" variants={questionVariants()}>Edit profile & settings</motion.a> */}
+        
         {getStarted && (
-          <Button
-            className="bg-red-700 mt-4  w-1/4"
-            onClick={() => {
-              setChatComponent(true);
-              setGetStarted(false);
-            }}
-          >
-            Get Started
-          </Button>
+          <motion.div variants={languageVariants(1, true)}>
+            <Button
+              className="bg-red-700 mt-4 w-full"
+              onClick={() => {
+                setChatComponent(true);
+                setGetStarted(false);
+              }}
+            >
+              Get Started
+            </Button>
+          </motion.div>
         )}
+        
         {getStarted && (
-          <div className="flex items-center mt-4 mb-48">
+          <motion.div className="flex items-center mt-4 mb-48" variants={languageVariants(2, true)}>
             <div className="flex items-center space-x-2">
               <Switch
                 id="voice-mode"
-                className="bg-red-700"
+                className="bg-red-700 text-red-700"
                 onCheckedChange={(checked) => {
                   setVoiceMode(checked);
                 }}
@@ -191,17 +278,21 @@ export default function Home() {
                 Voice Mode
               </Label>
             </div>
-          </div>
+          </motion.div>
         )}
       </motion.div>
       <ComponentManager config={componentConfig} />
 
       {chatComponent && (
-        <ChatComponent
-          voiceMode={voiceMode}
-          handleVisibleCards={handleVisibleCards}
-        />
-      )}
+    <motion.div
+      initial="hidden"
+      animate={chatComponent ? "visible" : "hidden"}
+      variants={chatComponentVariants}
+    >
+      <ChatComponent voiceMode={voiceMode} handleVisibleCards={handleVisibleCards} />
+    </motion.div>
+  )}
     </motion.div>
   );
+  
 }
