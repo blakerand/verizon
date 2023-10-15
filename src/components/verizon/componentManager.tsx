@@ -179,6 +179,17 @@ function ComponentManager({ config }) {
           <ResetPasswordCard />
         </motion.div>
       )}
+      {showiphone15Card && (
+        <motion.div
+          className="min-h-[550px] w-1/3"
+          initial="hidden"
+          animate={showiphone15Card ? "visible" : "hidden"}
+          variants={chatComponentVariants}
+        >
+          {" "}
+          <Iphone15Card />
+        </motion.div>
+      )}
       {showS23Card && (
         <motion.div
           className="min-h-[550px] w-1/3"
@@ -199,17 +210,6 @@ function ComponentManager({ config }) {
         >
           {" "}
           <CoverageMap />
-        </motion.div>
-      )}
-      {showiphone15Card && (
-        <motion.div
-          className="min-h-[550px] w-1/3"
-          initial="hidden"
-          animate={showiphone15Card ? "visible" : "hidden"}
-          variants={chatComponentVariants}
-        >
-          {" "}
-          <Iphone15Card />
         </motion.div>
       )}
     </motion.div>
