@@ -13,7 +13,7 @@ function SocialCard3() {
   return Card({
     title: "Striving for a cleaner tomorrow.",
     description:
-      "Net zero carbon emissions in our operations by 2035. 100% of our total annual electricity consumption backed by renewable energy by 2030.",
+      "Net zero carbon emissions in our operations by 2035.",
     image: "/Social3.jpg",
     buttonText: "Learn more",
   });

@@ -23,6 +23,8 @@ const JohnSmith = {
         "Messages Used": "200",
       },
     ],
+    "job": "Software Engineer",
+    "industry": "Technology",
 };
 
 // prettier-ignore
@@ -59,6 +61,8 @@ const JaneDoe = {
         "Messages Used": "50",
       },
     ],
+    "job": "Management Consultant",
+    "industry": "Business",
 };
 
 // prettier-ignore
@@ -95,6 +99,8 @@ const BobBuilder = {
         "Messages Used": "200",
       },
     ],
+    "job": "Construction Worker",
+    "industry": "Workforce",
 };
 
 export const users = [JohnSmith, JaneDoe, BobBuilder];

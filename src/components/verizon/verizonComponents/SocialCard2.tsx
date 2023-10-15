@@ -13,7 +13,7 @@ function SocialCard1() {
   return Card({
     title: "Closing the digital divide.",
     description:
-      " Our commitment to helping schools and small businesses succeed in today's digital landscape is changing lives.",
+      "Our commitment to helping schools is changing lives.",
     image: "/Social2.jpg",
     buttonText: "Learn more",
   });
