@@ -10,8 +10,22 @@ import {
 import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
 import Card from "@/components/verizon/verizonComponents/Card";
+import { useUserContext } from "@/app/UserContext";
 
 function DataCard() {
+  const { currentUser } = useUserContext();
+  let dataUsage = 0;
+
+  if (currentUser) {
+    const lines = currentUser.phonesOnPlan;
+    const dataUsed = lines.reduce((total, line) => {
+      const lineDataUsed =
+        parseFloat(line["4G Data Used"]) +
+        parseFloat(line["5G Data Used"] || "0");
+      return total + lineDataUsed;
+    }, 0);
+    dataUsage = dataUsed;
+  }
   const lottieAnimation = () => {
     return (
       <Lottie
@@ -338,25 +352,11 @@ function DataCard() {
     );
   };
   return Card({
-    title: "You've used 14 gigabytes of data this month.",
-    description: "You can upgrade to an Unlimited plan for $10 more per month.",
+    title: `You've ${dataUsage} gigabytes of data this month.`,
+    description: "You have been enjoying your unlimited data!.",
     image: lottieAnimation,
     buttonText: "Upgrade",
   });
-  // return (
-  //     <Card className="bg-black bg-opacity-100 rounded-lg w-full h-full p-4 flex min-h-[550px] flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
-  //       <CardTitle className="mb-1 absolute top-10 text-white mx-10 text-center">
-  //         You've used 14 gigabytes of data this month.
-  //       </CardTitle>
-  //       <div className="text-gray-300 absolute top-[90px] flex-col text-sm px-10 text-center">
-  //         You can upgrade to an Unlimited plan for $10 more per month.
-  //       </div>
-  //
-  //       <Button className="w-3/4 bg-red-700 mt-4 absolute bottom-10">
-  //         Upgrade
-  //       </Button>
-  //     </Card>
-  //   );
 }
 
 export default DataCard;
