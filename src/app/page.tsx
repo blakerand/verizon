@@ -29,10 +29,20 @@ export default function Home() {
   //   visible: { y: "32vh", transition: { type: "spring", stiffness: 60 } },
   // };
 
+
   const componentConfig = {
-    ultimatePlan: true,
-    appleOneActivation: true,
-    screenRepair: true,
+    ultimatePlan: false,
+    appleOneActivation: false,
+    screenRepair: false,
+    changeAddress: false,
+    dataCard: false,
+    resetPasswordCard: false,
+    s23Card: true,
+    socialCard1: false,
+    socialCard2: false,
+    socialCard3: false,
+    pixel8Card: false,
+    fiveGCard: false,
   };
 
   useEffect(() => {

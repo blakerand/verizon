@@ -128,8 +128,8 @@ function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
 
   return (
     <Card
-      className="bg-black absolute mx-auto bottom-10 left-0 right-0
-    rounded-lg p-4 flex flex-col items-center justify-center w-full mt-4 max-w-4xl"
+      className="bg-black absolute mx-auto bottom-8 left-0 right-0
+    rounded-lg p-4 flex flex-col items-center justify-center w-full max-w-4xl"
     >
       <div
         className="flex flex-col w-full h-48 overflow-y-auto"
