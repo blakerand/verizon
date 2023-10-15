@@ -68,10 +68,22 @@ function ChatComponent({
   const [typing, setTyping] = useState(true);
 
   useEffect(() => {
-    if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    let intervalId: NodeJS.Timeout | null = null;
+
+    if (typing) {
+      intervalId = setInterval(() => {
+        if (messagesRef.current) {
+          messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        }
+      }, 200);
     }
-  }, [messages]);
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [typing]);
 
   const messageDone = async () => {
     setTyping(true);
