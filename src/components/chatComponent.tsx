@@ -6,6 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import Typewriter from "typewriter-effect";
 import { users } from "@/users";
 
+const currentUser = users[0];
+
 const playAudio = async (message: string) => {
   try {
     // fetch audio from the server-side API
@@ -37,7 +39,7 @@ const submitMessage = async (message: string) => {
   const response = await fetch("/api/chat", {
     method: "POST",
     body: JSON.stringify({
-      message: "data usage",
+      message: message,
       profile: users[0],
     }),
   });
@@ -49,7 +51,11 @@ function ChatComponent() {
   const [messages, setMessages] = useState([
     {
       role: "system",
-      content: "Hey Max, welcome to Verizon. How can I assist you today?",
+      content: `Hey ${currentUser.firstName
+        .charAt(0)
+        .toUpperCase()}${currentUser.firstName.slice(
+        1
+      )}, welcome to Verizon. How can I assist you today?`,
     },
   ]);
 
@@ -61,8 +67,27 @@ function ChatComponent() {
         {messages.map((m, index) => (
           <div className="flex items-center mb-2">
             <Avatar className="mr-2">
-              <AvatarImage src="/logo.png" />
+              {m.role === "system" ? (
+                <AvatarImage src="/logo.png" />
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "#ffffff",
+                    color: "black",
+                    fontSize: "18px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  {currentUser.firstName.charAt(0).toUpperCase()}
+                </div>
+              )}
             </Avatar>
+
             <div className="text-white bg-gray-700 rounded-lg p-2">
               {m.role === "user" ? (
                 <div>{m.content}</div>
@@ -89,7 +114,7 @@ function ChatComponent() {
                       .start();
                   }}
                   options={{
-                    delay: index === 0 ? 25 : 50,
+                    delay: index === 0 ? 10 : 50,
                   }}
                 />
               )}
