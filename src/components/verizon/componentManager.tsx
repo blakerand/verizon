@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UltimatePlanCard from "./verizonComponents/UltimatePlanCard";
 import AppleOneActivationCard from "./verizonComponents/AppleOneActivationCard";
 import ScreenRepairCard from "./verizonComponents/ScreenRepairCard";
@@ -33,6 +33,22 @@ function ComponentManager({ config }) {
   const [showPixel8Card, setShowPixel8Card] = useState(config.pixel8Card);
   const [showFiveGCard, setShowFiveGCard] = useState(config.fiveGCard);
   const [showCoverageMap, setShowCoverageMap] = useState(config.coverageMap);
+
+  useEffect(() => {
+    setShowUltimatePlan(config.ultimatePlan);
+    setShowAppleOneActivation(config.appleOneActivation);
+    setShowScreenRepair(config.screenRepair);
+    setShowChangeAddress(config.changeAddress);
+    setShowDataCard(config.dataCard);
+    setShowResetPasswordCard(config.resetPasswordCard);
+    setShowS23Card(config.s23Card);
+    setShowSocialCard1(config.socialCard1);
+    setShowSocialCard2(config.socialCard2);
+    setShowSocialCard3(config.socialCard3);
+    setShowPixel8Card(config.pixel8Card);
+    setShowFiveGCard(config.fiveGCard);
+    setShowCoverageMap(config.coverageMap);
+  }, [config]);
 
   return (
     <div className="flex flex-row space-x-4 mx-20 max-h-[550px] justify-center">

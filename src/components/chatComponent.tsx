@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -27,7 +27,26 @@ const submitMessage = async (message: string) => {
   return responseBody.message;
 };
 
-function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
+const getCards = async (message: string) => {
+  const response = await fetch("/api/pickCards", {
+    method: "POST",
+    body: JSON.stringify({
+      message: message,
+    }),
+  });
+  const responseBody = await response.json();
+  console.log(responseBody.message);
+  const cards = JSON.parse(responseBody.message);
+  return cards;
+};
+
+function ChatComponent({
+  voiceMode,
+  handleVisibleCards,
+}: {
+  voiceMode: boolean;
+  handleVisibleCards: (cards: any) => void;
+}) {
   const [messages, setMessages] = useState([
     {
       role: "system",
@@ -49,7 +68,7 @@ function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
     }
   }, [messages]);
 
-  const messageDone = () => {
+  const messageDone = async () => {
     setTyping(true);
     setMessages([...messages, { role: "user", content: currentMessage }]);
     submitMessage(currentMessage).then((response) => {
@@ -59,6 +78,10 @@ function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
         { role: "system", content: response },
       ]);
     });
+    const visibleCards = await getCards(currentMessage);
+    // setVisibleCards([visibleCards]);
+    // setVisibleCards(["Card1", "Card2"]);
+    handleVisibleCards(visibleCards);
     setCurrentMessage("");
   };
 
@@ -170,9 +193,9 @@ function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
                 <Typewriter
                   onInit={async (typewriter) => {
                     //Uncomment for voice
-                    // if (index === messages.length - 1 && m.role === "system") {
-                    //   await playAudio(m.content);
-                    // }
+                    if (index === messages.length - 1 && m.role === "system") {
+                      await playAudio(m.content);
+                    }
 
                     typewriter
                       .typeString(m.content)
@@ -221,18 +244,19 @@ function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
             <Button
               className="ml-2 bg-red-700"
               onClick={() => {
-                setMessages([
-                  ...messages,
-                  { role: "user", content: currentMessage },
-                ]);
-                submitMessage(currentMessage).then((response) => {
-                  setMessages([
-                    ...messages,
-                    { role: "user", content: currentMessage },
-                    { role: "system", content: response },
-                  ]);
-                });
-                setCurrentMessage("");
+                // setMessages([
+                //   ...messages,
+                //   { role: "user", content: currentMessage },
+                // ]);
+                // submitMessage(currentMessage).then((response) => {
+                //   setMessages([
+                //     ...messages,
+                //     { role: "user", content: currentMessage },
+                //     { role: "system", content: response },
+                //   ]);
+                // });
+                // setCurrentMessage("");
+                messageDone();
               }}
             >
               Send

@@ -1,5 +1,4 @@
 import openai from "../../../../services/openai.service";
-import { OpenAIStream, StreamingTextResponse } from "ai";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -16,7 +15,7 @@ export async function POST(req: Request) {
             body.profile
           )}.`,
         },
-        { role: "user", content: JSON.stringify(body.message) },
+        { role: "system", content: JSON.stringify(body.message) },
       ],
       // stream: true,
       model: "gpt-3.5-turbo",

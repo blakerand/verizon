@@ -25,12 +25,35 @@ export default function Home() {
   const [getStarted, setGetStarted] = useState(true);
   const [boxOne, setBoxOne] = useState<string | null>(null);
   const [voiceMode, setVoiceMode] = useState(true);
-  // const chatComponentVariants = {
-  //   hidden: { y: "100vh" },
-  //   visible: { y: "32vh", transition: { type: "spring", stiffness: 60 } },
-  // };
+  const [visibleCards, setVisibleCards] = useState<string[]>([]);
 
-  const componentConfig = {
+  const handleVisibleCards = (cards) => {
+    console.log(cards);
+    console.log("ran");
+    setVisibleCards(cards);
+  };
+
+  type ComponentConfigKeys =
+    | "ultimatePlan"
+    | "appleOneActivation"
+    | "screenRepair"
+    | "changeAddress"
+    | "dataCard"
+    | "resetPasswordCard"
+    | "s23Card"
+    | "socialCard1"
+    | "socialCard2"
+    | "socialCard3"
+    | "pixel8Card"
+    | "fiveGCard"
+    | "coverageMap";
+
+  // Define the shape of your componentConfig object
+  type ComponentConfig = {
+    [key in ComponentConfigKeys]: boolean;
+  };
+
+  const [componentConfig, setComponentConfig] = useState<ComponentConfig>({
     ultimatePlan: false,
     appleOneActivation: false,
     screenRepair: false,
@@ -43,8 +66,29 @@ export default function Home() {
     socialCard3: false,
     pixel8Card: false,
     fiveGCard: false,
-    coverageMap: true,
-  };
+    coverageMap: false,
+  });
+
+  useEffect(() => {
+    console.log(visibleCards);
+    if (visibleCards.length > 0) {
+      // Create a new state object by mapping the current state
+      // and setting the visibility to true for the cards in the visibleCards array
+      const newComponentConfig = Object.fromEntries(
+        Object.entries(componentConfig).map(([key, value]) => [key, false])
+      );
+      visibleCards.forEach((card) => {
+        if (newComponentConfig.hasOwnProperty(card)) {
+          const key = card as ComponentConfigKeys;
+          newComponentConfig[key] = true;
+        }
+      });
+
+      // Update the state with the new configuration
+      setComponentConfig(newComponentConfig as ComponentConfig);
+      console.log(newComponentConfig);
+    }
+  }, [visibleCards]);
 
   useEffect(() => {
     const getRecap = async () => {
@@ -152,7 +196,12 @@ export default function Home() {
       </motion.div>
       <ComponentManager config={componentConfig} />
 
-      {chatComponent && <ChatComponent voiceMode={voiceMode} />}
+      {chatComponent && (
+        <ChatComponent
+          voiceMode={voiceMode}
+          handleVisibleCards={handleVisibleCards}
+        />
+      )}
     </motion.div>
   );
 }
