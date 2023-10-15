@@ -82,6 +82,7 @@ export default function Home() {
     | "socialCard3"
     | "pixel8Card"
     | "fiveGCard"
+    | "iphone15Card"
     | "coverageMap";
 
   // Define the shape of your componentConfig object
@@ -100,8 +101,9 @@ export default function Home() {
     socialCard1: false,
     socialCard2: false,
     socialCard3: false,
-    pixel8Card: true,
-    fiveGCard: true,
+    pixel8Card: false,
+    iphone15Card: false,
+    fiveGCard: false,
     coverageMap: false,
   });
 
