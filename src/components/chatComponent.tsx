@@ -214,7 +214,11 @@ function ChatComponent({
                 <Typewriter
                   onInit={async (typewriter) => {
                     //Uncomment for voice
-                    if (index === messages.length - 1 && m.role === "system") {
+                    if (
+                      index === messages.length - 1 &&
+                      m.role === "system" &&
+                      voiceMode
+                    ) {
                       await playAudio(m.content);
                     }
                     typewriter
@@ -229,7 +233,9 @@ function ChatComponent({
                         if (latestCursorElement) {
                           latestCursorElement.style.display = "none";
                         }
-                        setTyping(false);
+                        if (!voiceMode) {
+                          setTyping(false);
+                        }
                       })
                       .start();
                   }}
@@ -250,7 +256,9 @@ function ChatComponent({
               {currentMessage ? (
                 <p className="text-black">{currentMessage}</p>
               ) : (
-                <p className="text-gray-300">Please start talking...</p>
+                !typing && (
+                  <p className="text-gray-300">Please start talking...</p>
+                )
               )}
             </div>
           </React.Fragment>
