@@ -18,13 +18,13 @@ export default function Home() {
   const [chatComponent, setChatComponent] = useState(false);
   const [getStarted, setGetStarted] = useState(true);
   const [boxOne, setBoxOne] = useState<string | null>(null);
-  const chatComponentVariants = {
-    hidden: { y: "100vh" },
-    visible: { y: "32vh", transition: { type: "spring", stiffness: 60 } },
-  };
+  // const chatComponentVariants = {
+  //   hidden: { y: "100vh" },
+  //   visible: { y: "32vh", transition: { type: "spring", stiffness: 60 } },
+  // };
 
   const componentConfig = {
-    ultimatePlan: true,
+    ultimatePlan: false,
     appleOneActivation: false,
     screenRepair: false
   };
@@ -118,15 +118,10 @@ export default function Home() {
           </Button>
         )}
       </motion.div>
+      {chatComponent && 
+        <ChatComponent />}
+
       <ComponentManager config={componentConfig} />
-      <motion.div
-        className="flex items-center mx-auto flex-col mt-4 px-24"
-        initial="hidden"
-        animate={chatComponent ? "visible" : "hidden"}
-        variants={chatComponentVariants}
-      >
-        {chatComponent && <ChatComponent />}
-      </motion.div>
     </motion.div>
   );
 }

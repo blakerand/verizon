@@ -62,8 +62,9 @@ function ChatComponent() {
   const [currentMessage, setCurrentMessage] = useState("");
 
   return (
-    <Card className="bg-black rounded-lg p-4 flex flex-col items-center justify-center w-full mt-4 max-w-4xl">
-      <div className="flex flex-col w-full h-48 overflow-y-auto p-2">
+    <Card className="bg-black absolute mx-auto bottom-10 left-0 right-0
+    rounded-lg p-4 flex flex-col items-center justify-center w-full mt-4 max-w-4xl">
+      <div className="flex flex-col w-full h-48 overflow-y-auto p-2 ">
         {messages.map((m, index) => (
           <div className="flex items-center mb-2">
             <Avatar className="mr-2">
