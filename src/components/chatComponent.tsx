@@ -43,7 +43,7 @@ const submitMessage = async (message: string) => {
       profile: users[0],
     }),
   });
-  const responseBody = await response.json(); // Extract the response content
+  const responseBody = await response.json();
   return responseBody.message;
 };
 
@@ -60,6 +60,21 @@ function ChatComponent() {
   ]);
 
   const [currentMessage, setCurrentMessage] = useState("");
+
+  const handleTextareaKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      setMessages([...messages, { role: "user", content: currentMessage }]);
+      submitMessage(currentMessage).then((response) => {
+        setMessages([
+          ...messages,
+          { role: "user", content: currentMessage },
+          { role: "system", content: response },
+        ]);
+      });
+      setCurrentMessage("");
+    }
+  };
 
   return (
     <Card className="bg-black absolute mx-auto bottom-10 left-0 right-0
@@ -129,6 +144,7 @@ function ChatComponent() {
           className="flex-grow rounded-lg text-black"
           value={currentMessage}
           onChange={(e) => setCurrentMessage(e.target.value)}
+          onKeyDown={handleTextareaKeyDown}
           placeholder="Type your message..."
         />
         <Button
@@ -145,6 +161,7 @@ function ChatComponent() {
                 { role: "system", content: response },
               ]);
             });
+            setCurrentMessage("");
           }}
         >
           Send
