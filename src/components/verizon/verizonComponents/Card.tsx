@@ -30,15 +30,28 @@ function Card({ title, description, image, buttonText }) {
               ? "h-[180px] mt-6 2xl:h-[270px]"
               : "h-[60%]"
           } rounded-lg ${
-            title.includes("Free") ||
-            title.includes("screen") ||
-            title.includes("Building") ||
-            title.includes("divide") ||
             title.includes("tomorrow") ||
             title.includes("Social") ||
             title.includes("Quality")
-              ? "h-32 mt-6 "
+              ? "h-[150px] mt-4 2xl:h-[200px]"
               : "mt-0"
+          }
+          ${
+            title.includes("Free") ? "h-[150px] mt-6 2xl:h-[200px]"
+              : "mt-0"
+          }
+          ${
+            title.includes("screen") ? "h-[150px] mt-2 2xl:h-[200px] 2xl:mt-6"
+              : "mt-0"
+          }
+          ${
+            title.includes("divide") ? "h-[150px] mt-10 2xl:h-[200px] 2xl:mt-10 "
+              : "mt-0"
+          }
+          ${
+          title.includes("Building") 
+          ? "h-[150px] mt-5 2xl:mt-10 2xl:h-[200px]"
+          : "mt-0"
           }`}
         />
       )}
