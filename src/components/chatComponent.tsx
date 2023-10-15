@@ -201,7 +201,6 @@ function ChatComponent({
                     // if (index === messages.length - 1 && m.role === "system") {
                     //   await playAudio(m.content);
                     // }
-
                     typewriter
                       .typeString(m.content)
                       .callFunction(() => {
@@ -221,7 +220,7 @@ function ChatComponent({
                       .start();
                   }}
                   options={{
-                    delay: index === 0 ? 10 : 50,
+                    delay: index != 0 && voiceMode ? 50 : 10,
                   }}
                 />
               )}
