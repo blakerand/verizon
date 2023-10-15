@@ -171,11 +171,11 @@ function ChatComponent({
 
   return (
     <Card
-      className="bg-black absolute mx-auto bottom-8 left-0 right-0
+      className="bg-black absolute mx-auto bottom-8 left-0 right-0 min-w-[750px]
     rounded-lg p-4 flex flex-col items-center justify-center w-full max-w-4xl"
     >
       <div
-        className="flex flex-col w-full h-48 overflow-y-auto"
+        className="flex flex-col w-full h-24 overflow-y-auto"
         ref={messagesRef}
       >
         {messages.map((m, index) => (

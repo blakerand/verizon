@@ -91,16 +91,16 @@ export default function Home() {
   };
 
   const [componentConfig, setComponentConfig] = useState<ComponentConfig>({
-    ultimatePlan: true,
+    ultimatePlan: false,
     appleOneActivation: false,
     screenRepair: false,
     changeAddress: false,
     dataCard: false,
     resetPasswordCard: false,
     s23Card: false,
-    socialCard1: false,
-    socialCard2: false,
-    socialCard3: false,
+    socialCard1: true,
+    socialCard2: true,
+    socialCard3: true,
     pixel8Card: false,
     iphone15Card: false,
     fiveGCard: false,
@@ -268,7 +268,7 @@ export default function Home() {
 
   return (
     <motion.div
-      className="bg-black min-h-screen"
+      className="bg-black min-h-screen min-w-[750px]"
       initial="hidden"
       animate="visible"
       variants={variants(0.2)}

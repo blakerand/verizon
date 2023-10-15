@@ -54,44 +54,44 @@ function ComponentManager({ config }) {
   }, [config]);
 
   return (
-    <motion.div className="flex flex-row grid-rows-1 space-x-4 mx-20 max-h-[550px] justify-center">
-      {showSocialCard1 &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+    <motion.div className="flex flex-row w-full justify-center space-x-4 h-96 2xl:h-[450px] ">
+      {showSocialCard1 &&  <motion.div className="w-1/4" initial="hidden"
       animate={showSocialCard1 ? "visible" : "hidden"}
       variants={chatComponentVariants}>  <SocialCard1 /></motion.div>}
-      {showSocialCard2 &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showSocialCard2 &&  <motion.div className="w-1/4" initial="hidden"
       animate={showSocialCard2 ? "visible" : "hidden"}
       variants={chatComponentVariants}> <SocialCard2 /></motion.div>}
-      {showSocialCard3 &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showSocialCard3 &&  <motion.div className="w-1/4" initial="hidden"
       animate={showSocialCard3 ? "visible" : "hidden"}
       variants={chatComponentVariants}> <SocialCard3 /></motion.div>}
-      {showPixel8Card &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showPixel8Card &&  <motion.div className="w-1/4" initial="hidden"
       animate={showPixel8Card ? "visible" : "hidden"}
       variants={chatComponentVariants}> <Pixel8Card /></motion.div>}
-      {showFiveGCard &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showFiveGCard &&  <motion.div className="w-1/4" initial="hidden"
       animate={showFiveGCard ? "visible" : "hidden"}
       variants={chatComponentVariants}> <FiveGCard /></motion.div>}
-      {showUltimatePlan &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showUltimatePlan &&  <motion.div className="w-1/4" initial="hidden"
       animate={showUltimatePlan ? "visible" : "hidden"}
       variants={chatComponentVariants}> <UltimatePlanCard /></motion.div>}
-      {showAppleOneActivation &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showAppleOneActivation &&  <motion.div className="w-1/4" initial="hidden"
       animate={showAppleOneActivation ? "visible" : "hidden"}
       variants={chatComponentVariants}> <AppleOneActivationCard /></motion.div>}
-      {showScreenRepair &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showScreenRepair &&  <motion.div className="w-1/4" initial="hidden"
       animate={showScreenRepair ? "visible" : "hidden"}
       variants={chatComponentVariants}> <ScreenRepairCard /></motion.div>}
-      {showChangeAddress &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showChangeAddress &&  <motion.div className="w-1/4" initial="hidden"
       animate={showChangeAddress ? "visible" : "hidden"}
       variants={chatComponentVariants}> <ChangeAddressCard /></motion.div>}
-      {showDataCard &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showDataCard &&  <motion.div className="w-1/4" initial="hidden"
       animate={showDataCard ? "visible" : "hidden"}
       variants={chatComponentVariants}> <DataCard /></motion.div>}
-      {showResetPasswordCard &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showResetPasswordCard &&  <motion.div className="w-1/4" initial="hidden"
       animate={showResetPasswordCard ? "visible" : "hidden"}
       variants={chatComponentVariants}> <ResetPasswordCard /></motion.div>}
-      {showS23Card &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showS23Card &&  <motion.div className="w-1/4" initial="hidden"
       animate={showS23Card ? "visible" : "hidden"}
       variants={chatComponentVariants}> <S23Card /></motion.div>}
-      {showCoverageMap &&  <motion.div className="min-h-[550px] w-1/3" initial="hidden"
+      {showCoverageMap &&  <motion.div className="w-1/4" initial="hidden"
       animate={showCoverageMap ? "visible" : "hidden"}
       variants={chatComponentVariants}> <CoverageMap /></motion.div>}
    </motion.div> 
