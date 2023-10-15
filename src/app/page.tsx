@@ -9,6 +9,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import ChatComponent from "@/components/chatComponent";
 import ComponentManager from "@/components/verizon/componentManager";
+import { User } from "lucide-react";
+
+const currentUser = users[0];
 
 export default function Home() {
   const [recap, setRecap] = useState(null);
@@ -20,15 +23,14 @@ export default function Home() {
   const [boxOne, setBoxOne] = useState<string | null>(null);
   const chatComponentVariants = {
     hidden: { y: "100vh" },
-    visible: { y: "32vh", transition: { type: "spring", stiffness: 60 } },
+    visible: { y: "20vh", transition: { type: "spring", stiffness: 60 } },
   };
 
   const componentConfig = {
-    ultimatePlan: true,
+    ultimatePlan: false,
     appleOneActivation: false,
-    screenRepair: false
+    screenRepair: false,
   };
-  
 
   useEffect(() => {
     const getRecap = async () => {
@@ -39,7 +41,6 @@ export default function Home() {
           user: users[0],
         }),
       });
-      
 
       //response has a readable stream
       if (response.body) {
@@ -101,7 +102,7 @@ export default function Home() {
         <Header />
         {!anyComponentActive && (
           <div className="text-white text-4xl flex justify-center w-full mt-64 text-center">
-            Welcome to the new Verizon Experience, Max.
+            Welcome to the new Verizon Experience, {currentUser.firstName}.
           </div>
         )}
 
