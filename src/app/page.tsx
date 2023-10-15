@@ -12,6 +12,7 @@ import ComponentManager from "@/components/verizon/componentManager";
 import { User } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import CoverageMap from "@/components/verizon/verizonComponents/ CoverageMap";
 
 const currentUser = users[0];
 
@@ -29,7 +30,6 @@ export default function Home() {
   //   visible: { y: "32vh", transition: { type: "spring", stiffness: 60 } },
   // };
 
-
   const componentConfig = {
     ultimatePlan: false,
     appleOneActivation: false,
@@ -37,12 +37,13 @@ export default function Home() {
     changeAddress: false,
     dataCard: false,
     resetPasswordCard: false,
-    s23Card: true,
+    s23Card: false,
     socialCard1: false,
     socialCard2: false,
     socialCard3: false,
     pixel8Card: false,
     fiveGCard: false,
+    coverageMap: true,
   };
 
   useEffect(() => {

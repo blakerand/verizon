@@ -176,7 +176,6 @@ function ChatComponent({ voiceMode }: { voiceMode: boolean }) {
 
                     typewriter
                       .typeString(m.content)
-
                       .callFunction(() => {
                         const cursorElements = document.querySelectorAll(
                           ".Typewriter__cursor"
