@@ -37,7 +37,7 @@ function ChatComponent({
   const { currentUser } = useUserContext();
   if (!currentUser || !currentUser.firstName) {
     console.error("currentUser or currentUser.firstName is not defined.");
-    return null; // or return some kind of placeholder/error component
+    return null;
   }
 
   const submitMessage = async (message: string) => {
@@ -108,7 +108,9 @@ function ChatComponent({
   ) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      messageDone();
+      if (!typing) {
+        messageDone();
+      }
     }
   };
 
@@ -226,9 +228,7 @@ function ChatComponent({
                         if (latestCursorElement) {
                           latestCursorElement.style.display = "none";
                         }
-                        // if (!voiceMode) {
                         setTyping(false);
-                        // }
                       })
                       .start();
                   }}
@@ -264,20 +264,11 @@ function ChatComponent({
             />
             <Button
               className="ml-2 bg-red-700"
+              disabled={typing}
               onClick={() => {
-                // setMessages([
-                //   ...messages,
-                //   { role: "user", content: currentMessage },
-                // ]);
-                // submitMessage(currentMessage).then((response) => {
-                //   setMessages([
-                //     ...messages,
-                //     { role: "user", content: currentMessage },
-                //     { role: "system", content: response },
-                //   ]);
-                // });
-                // setCurrentMessage("");
-                messageDone();
+                if (!typing) {
+                  messageDone();
+                }
               }}
             >
               Send
